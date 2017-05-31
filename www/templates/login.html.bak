@@ -1,0 +1,19 @@
+<div class="bar bar-header bar-balanced">
+  <h1 class="title">Login</h1>
+</div>
+<br>
+<form ng-submit="doLogin()">
+  <div class="list bar-subheader">
+  <label class="item item-input">
+   <span class="input-label">Username</span>
+    <input type="text" ng-model="login.username">
+  </label>
+  <label class="item item-input">
+    <span class="input-label">Password</span>
+    <input type="password" ng-model="login.password">
+ 
+  </label>
+  <br>
+<center><a ui-sref="history"><button class="button button=-clear button-positive">>> LOHIN << </center>
+</div>
+<button type="submit">Log in </button>

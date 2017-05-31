@@ -1,0 +1,19 @@
+<div class="bar bar-header bar-balanced">
+  <h1 class="title">SEARCH</h1>
+</div>
+<div class="bar bar-header item-input-inset list bar-subheader">
+<a ui-sref="login"><button class="button icon-left ion-home">Home</button></a>
+  <a ui-sref="history"><button class="button icon-left ">History</button></a>
+  <a ui-sref="list"><button class="button icon-left ">List</button></a>
+  <a ui-sref="Search"><button class="button icon-left ">Search</button></a>
+  <label class="item-input-wrapper">
+    <i class="icon ion-ios-search placeholder-icon"></i>
+    <input type="search" placeholder="Search">
+  </label>
+  <button class="button button-clear">
+    Cancel
+  </button>
+</div>
+<div class="bar bar-footer bar-balanced">
+  <div class="title">Footer</div>
+</div>
