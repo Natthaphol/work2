@@ -1,5 +1,5 @@
 <div class="bar bar-header bar-balanced">
-  <h1 class="title">List</h1>
+  <h1 class="title">list</h1>
 </div>
 <br>
 <br>
@@ -8,38 +8,15 @@
 <a ui-sref="history"><button class="button icon-left ">History</button></a>
   <a ui-sref="list"><button class="button icon-left ">List</button></a>
   <a ui-sref="Search"><button class="button icon-left ">Search</button></a>
-<br><div class="list">
-
-    <a class="item item-thumbnail-left" href="#">
-      <img src="img/13.jpg">
-      <h2>Naruto</h2>
-      <p>Naruto</p>
-
-    <a class="item item-thumbnail-left" href="#">
-      <img src="img/15.jpg">
-      <h2>One Piece</h2>
-      <p>One Piece</p>
-	 
-	  
-    <a class="item item-thumbnail-left" href="#">
-      <img src="img/14.jpg">
-      <h2>Reborn</h2>
-      <p>Reborn </p>
-
-	   <a class="item item-thumbnail-left" href="#">
-      <img src="img/16.jpg">
-      <h2>Conan</h2>
-      <p>Conan</p>
-	   
-	   <a class="item item-thumbnail-left" href="#">
-      <img src="img/17.jpg">
-      <h2> Kuroko</h2>
-      <p> Kuroko</p>
-    </a>
+  <a ui-sref="admin"><button class="button icon-left ">admin</button></a>
 <br>
-<br>
-<br>
-<div class="bar bar-footer bar-balanced">
-  <div class="title">Footer</div>
+<div class="List">
 
+    <a ng-repeat ="list in datalist" class ="item item-thumbnail-left" >
+      <img src="{{list.pic}}">
+      <h2>{{list.fname}}</h2>
+      <p>{{list.lname}}</p>
+ <br>
+ <br>
+ <br>
 </div>

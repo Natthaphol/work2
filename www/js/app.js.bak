@@ -38,12 +38,17 @@ angular.module('starter', ['ionic'])
 		.state('list',{
 		url: '/list',
 		templateUrl: 'templates/list.html',
-		controller: 'AppCtrl'
+		controller: 'PlaylistCtrl1'
 	})
 		.state('Search',{
 		url: '/Search',
 		templateUrl: 'templates/Search.html',
 		controller: 'AppCtrl'
+	})
+		.state('admin',{
+		url: '/admin',
+		templateUrl: 'templates/admin.html',
+		controller: 'AdminCtrl'
 	})
 		.state('login',{
 		url: '/login',
@@ -52,33 +57,89 @@ angular.module('starter', ['ionic'])
 	})
 	$urlRouterProvider.otherwise('/login');
 })
-.controller('AppCtrl',function ($scope,$state,$ionicPopup){
 
-	$scope.login={};
-	var user="admin";
-	var password="123456";
-	$scope.doLogin=function(){
-		console.log("alert");
-		console.log(password);
-		console.log($scope.login.username);
-		console.log($scope.login.password);
-		if ($scope.login.username == 'admin' && $scope.login.password == '123456') {
-		console.log('success');
-		$ionicPopup.alert({
-		 title: 'Login Success!',
-		 template: 'Welcome admin'
-	   });
-		$state.go('history')
 
-    }else{
-		console.log('invalid');
-		$ionicPopup.alert({
-		 title: 'Login Fail!',
-		 template: 'Invalid Username and Password '
-	   });
-		$state.go('login')
-    }
-	};
- 
+
+.controller('AppCtrl',function ($scope,$state,$ionicPopup,$http,$ionicHistory) {
+  var url="http://localhost/ionic_php/";
+  $scope.login={};
+ $scope.doLogin=function(){
+   
+      var admin_user=$scope.login.username;
+      var admin_password=$scope.login.password;
+      console.log(admin_user);
+      if(admin_user && admin_password){
+          str=url+"login.php?username="+admin_user+"&password="+admin_password;
+          $http.get(str)
+            .success(function(response){
+
+                $scope.admin=response.records;
+                sessionStorage.setItem('loggedin_status',true);
+                sessionStorage.setItem('loggedin_id',$scope.admin.admin_id);
+                sessionStorage.setItem('loggedin_status',$scope.admin.admin_user);
+
+                $ionicHistory.nextViewOptions({
+                  disableAnimate:true,
+                  disableBack:true
+                })
+
+                $ionicPopup.alert({
+                  title:'login',
+                  template:'Welcome'
+                })
+
+                $state.go('list',{},{location:"replace",reload:true});
+            })
+            .error(function(){
+
+              $ionicPopup.alert({
+                title:'login',
+                template:'No login please check'
+              })
+            });
+
+      }else{
+        $ionicPopup.alert({
+          title:'login',
+          template:'Please check !!!!'
+        })
+
+      }
+
+  }
+})
+
+.controller('PlaylistCtrl1',function($scope,$http){
 	
+	$scope.datalist=[];
+	$scope.url="http://localhost/ionic_php/loaddata.php";
+	$http.get($scope.url)
+		.success(function(data){
+		console.log("ok");
+		$scope.datalist=data;
+	})
+		.error(function(data){
+			console.log("error");
+	});
+})
+
+.controller('AdminCtrl',function($scope,$http){
+var url="http://localhost/ionic_php/";
+	$scope.Admindata=[];
+	 $scope.creatAdmin=function(){
+      var admin_user=$scope.adminData.admin_user;
+      var admin_password=$scope.adminData.admin_password;
+      console.log(admin_user),console.log(admin_password);
+	  str=url+"admin-insert.php?username="+admin_user+"&password="+admin_password;
+       $http.get(str)
+		.success(function(data){
+		if(data==true)
+		console.log("OK");
+	})
+		.error(function(data){
+		console.log("Erorr");
+	});
+	
+	
+	}
 })
